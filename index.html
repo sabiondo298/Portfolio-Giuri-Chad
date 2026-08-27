@@ -44,7 +44,24 @@
                     <span class="panel-paragraph">Mi objetivo es seguir desarrollándome constantemente y aprovechar cada proyecto como una oportunidad para aprender algo nuevo y acercarme a mis metas profesionales.</span>
                 </span>
             </button>
-            <button class="content-panel" type="button">Projects</button>
+            <article class="content-panel content-panel--projects" role="button" tabindex="0" aria-expanded="false" aria-controls="projects-content">
+                <span class="panel-label">Projects</span>
+                <span class="panel-arrow" aria-hidden="true">+</span>
+                <span class="project-content" id="projects-content">
+                    <a class="card border-0 project-card project-card-link" href="https://github.com/Dantelz/save-obama-wishlist-on-steam" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/save-him.png" class="card-img-top" alt="Save Obama Game">
+                        <span class="card-body">
+                            <span class="card-title">Save Obama Gmae</span>
+                        </span>
+                    </a>
+                    <a class="card border-0 project-card project-card-link slither-card" href="https://github.com/sabiondo298/Trabajo-1er-Bimestre-4AO" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/slither-bro.png" class="card-img-top" alt="Slither Juan">
+                        <span class="card-body">
+                            <span class="card-title">Slither Juan</span>
+                        </span>
+                    </a>
+                </span>
+            </article>
             <button class="content-panel" type="button">Contact</button>
         </section>
     </main>
@@ -58,6 +75,27 @@
             const isExpanded = myselfPanel.classList.toggle("is-expanded");
             myselfPanel.parentElement.classList.toggle("has-expanded", isExpanded);
             myselfPanel.setAttribute("aria-expanded", String(isExpanded));
+        });
+
+        const projectsPanel = document.querySelector(".content-panel--projects");
+
+        const toggleProjects = () => {
+            const isExpanded = projectsPanel.classList.toggle("is-expanded");
+            projectsPanel.parentElement.classList.toggle("has-expanded", isExpanded);
+            projectsPanel.setAttribute("aria-expanded", String(isExpanded));
+        };
+
+        projectsPanel.addEventListener("click", (event) => {
+            if (!event.target.closest(".project-card-link")) {
+                toggleProjects();
+            }
+        });
+
+        projectsPanel.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                toggleProjects();
+            }
         });
     </script>
 </body>
