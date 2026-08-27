@@ -14,30 +14,51 @@
     <link rel ="icon" href ="assets/letter-j.png" type ="image/x-icon">
 </head>
 <body>
-    <div class="container_fluid">  
-    <header class = "navbar" id = "navbar">
-    <nav class="d-flex align-items-center">
-
-        <!-- CASA -->
-        <a href="index.html" class="home-icon" aria-label="Ir al inicio" title="Inicio">
+    <header class="topographic-strip">
+        <a class="home-icon" href="index.html" aria-label="Ir al inicio" title="Inicio">
             <i class="bi bi-house-fill"></i>
         </a>
 
-        <!-- LINKS -->
-        <div class="nav-links">
-            <a href="#">Myself</a>
-            <a href="#">Projects</a>
-            <a href="#">Contact</a>
-        </div>
+        <nav class="nav-links" aria-label="Navegación principal">
+            <a href="#Myself">Myself</a>
+            <a href="#Projects">Projects</a>
+            <a href="#Contact">Contact</a>
+        </nav>
+    </header>
 
-        <!-- LOGO -->
-        <a href="index.html" class="brand-logo" aria-label="Ir al inicio" title="Inicio">
-            <img src="assets/letter-j.png" alt="Logo J">
-        </a>
+    <main class="portfolio-layout">
+        <section class="profile-panel" aria-labelledby="profile-title">
+            <h1 id="profile-title">Juan Giuri</h1>
+            <div class="portrait-frame">
+                <img src="assets/pancho123.png" alt="Retrato de Juan Giuri">
+            </div>
+        </section>
 
-    </nav>
-   
-    
-</div>
+        <section class="content-panels" aria-label="Secciones del portfolio">
+            <button class="content-panel content-panel--expandable" type="button" aria-expanded="false" aria-controls="myself-content">
+                <span class="panel-label">Myself</span>
+                <span class="panel-arrow" aria-hidden="true">+</span>
+                <span class="panel-content" id="myself-content">
+                    <span class="panel-paragraph">Soy un estudiante de 17 años con interés en seguir creciendo, aprender y enfrentar nuevos desafíos. Me motiva participar en proyectos que me permitan poner en práctica mis conocimientos, desarrollar nuevas habilidades y adquirir experiencia en diferentes áreas.</span>
+                    <span class="panel-paragraph">Me considero una persona comprometida con ganas de aprender. Busco nuevas oportunidades y proyectos en los que pueda aportar mis ideas, trabajar en equipo y continuar construyendo mi perfil profesional desde una etapa temprana.</span>
+                    <span class="panel-paragraph">Mi objetivo es seguir desarrollándome constantemente y aprovechar cada proyecto como una oportunidad para aprender algo nuevo y acercarme a mis metas profesionales.</span>
+                </span>
+            </button>
+            <button class="content-panel" type="button">Projects</button>
+            <button class="content-panel" type="button">Contact</button>
+        </section>
+    </main>
+
+    <script>
+        requestAnimationFrame(() => document.body.classList.add("page-ready"));
+
+        const myselfPanel = document.querySelector(".content-panel--expandable");
+
+        myselfPanel.addEventListener("click", () => {
+            const isExpanded = myselfPanel.classList.toggle("is-expanded");
+            myselfPanel.parentElement.classList.toggle("has-expanded", isExpanded);
+            myselfPanel.setAttribute("aria-expanded", String(isExpanded));
+        });
+    </script>
 </body>
 </html>
