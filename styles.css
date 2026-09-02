@@ -4,6 +4,18 @@
     --gold: #f4b52f;
     --cream: #e09d46;
     --coral: #a85e4e;
+    --nav-background: #442324;
+    --nav-overlay: rgba(44, 22, 17, 0.16);
+}
+
+body.light-mode {
+    --background: #edf6f8;
+    --panel: #d8e9ee;
+    --gold: #23617a;
+    --cream: #4d7f91;
+    --coral: #78aebb;
+    --nav-background: #c5e0e7;
+    --nav-overlay: rgba(237, 246, 248, 0.22);
 }
 
 * {
@@ -13,11 +25,13 @@
 html {
     min-height: 100%;
     background: var(--background);
+    scroll-behavior: smooth;
 }
 
 body {
     min-height: 100vh;
     margin: 0;
+    padding-top: clamp(105px, 13vw, 150px);
     overflow-x: hidden;
     background: var(--background);
     color: var(--cream);
@@ -49,15 +63,19 @@ body {
 }
 
 .topographic-strip {
-    position: relative;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
     display: flex;
     align-items: center;
     height: clamp(105px, 13vw, 150px);
     padding: 0 clamp(20px, 5vw, 70px);
     border-top: 5px solid var(--gold);
     border-bottom: 5px solid var(--gold);
-    background-color: #442324;
-    background-image: linear-gradient(rgba(44, 22, 17, 0.16), rgba(44, 22, 17, 0.16)), url("assets/fotini.png");
+    background-color: var(--nav-background);
+    background-image: linear-gradient(var(--nav-overlay), var(--nav-overlay)), url("assets/fotini.png");
     background-position: center;
     background-size: cover;
     overflow: hidden;
@@ -108,6 +126,35 @@ body {
 .nav-links a:hover,
 .nav-links a:focus-visible {
     color: var(--cream);
+}
+
+.theme-toggle {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 48px;
+    height: 48px;
+    margin-left: clamp(18px, 3vw, 48px);
+    place-items: center;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    background: rgba(40, 19, 20, 0.82);
+    color: var(--gold);
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: background-color 180ms ease, color 180ms ease;
+}
+
+body.light-mode .home-icon,
+body.light-mode .theme-toggle,
+body.light-mode .nav-links {
+    background: rgba(237, 246, 248, 0.86);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+    background: var(--gold);
+    color: var(--background);
 }
 
 .portfolio-layout {
@@ -172,7 +219,7 @@ body.page-ready .profile-panel {
     align-content: start;
     gap: 26px;
     height: min(364px, calc(((min(88vw, 1165px) - clamp(2.5rem, 8vw, 8rem)) / 3 - 58px) * 1.51515));
-    margin-top: 100px;
+    margin-top: 97px;
 }
 
 body:not(.page-ready) .content-panel {
@@ -214,6 +261,7 @@ body.page-ready .content-panel:nth-child(3) {
     text-decoration: none;
     text-align: center;
     cursor: pointer;
+    scroll-margin-top: 24px;
     transition: background-color 180ms ease, color 180ms ease, height 1000ms cubic-bezier(0.22, 1, 0.36, 1), opacity 700ms ease, transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -374,6 +422,104 @@ body.page-ready .content-panel:nth-child(3) {
     width: min(100%, 250px);
 }
 
+.content-panel--contact.is-expanded {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    justify-content: flex-start;
+    padding: 30px;
+}
+
+.content-panel--contact.is-expanded .panel-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+}
+
+.content-panel--contact.is-expanded .panel-arrow {
+    transform: rotate(45deg);
+}
+
+.contact-content {
+    position: absolute;
+    inset: 26px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 400ms ease 220ms, transform 500ms ease 220ms;
+    pointer-events: none;
+}
+
+.content-panel--contact.is-expanded .contact-content {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.site-footer {
+    display: flex;
+    min-height: 78px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 72px;
+    padding: 20px 24px;
+    border-top: 4px solid var(--gold);
+    background: #211516;
+    color: var(--gold);
+    text-align: center;
+}
+
+.site-footer p {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.social-links {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 100px;
+    color: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 180ms ease, transform 180ms ease;
+}
+
+.social-link i {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+    color: var(--cream);
+    transform: translateY(-4px);
+}
+
+.contact-mail {
+    color: var(--gold);
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    font-weight: 600;
+    text-align: center;
+    transform: translateY(-24px);
+}
+
 @media (max-width: 700px) {
     .topographic-strip {
         height: 92px;
@@ -389,6 +535,13 @@ body.page-ready .content-panel:nth-child(3) {
     .nav-links {
         gap: 12px;
         padding: 10px 12px;
+    }
+
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+        margin-left: 10px;
+        font-size: 0.9rem;
     }
 
     .portfolio-layout {
@@ -455,9 +608,38 @@ body.page-ready .content-panel:nth-child(3) {
         max-height: 48px;
     }
 
+    .content-panel--contact.is-expanded {
+        top: 0;
+        height: 100%;
+        padding: 22px 18px;
+    }
+
+    .contact-content {
+        inset: 20px 18px;
+    }
+
+    .social-link {
+        min-width: 70px;
+        font-size: 0.65rem;
+    }
+
+    .social-link i {
+        font-size: 1.8rem;
+    }
+
+    .contact-mail {
+        font-size: 0.95rem;
+        transform: translateY(-14px);
+    }
+
     .panel-content {
         inset: 62px 18px 18px;
         font-size: 0.72rem;
         line-height: 1.45;
+    }
+
+    .site-footer {
+        margin-top: 48px;
+        padding: 18px 16px;
     }
 }
